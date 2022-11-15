@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="tracking_container">
+    <div>RoadMap</div>
+
+    {% regroup tracks by header as track_group %}
+
+    {% for title, trackings in track_group %}
+      <div class="tracking_group">
+        <div class="tracking_group_name">
+          <div><a href="{% url 'detail' trackings.0.lesson.course.pk %}">{{ title|capfirst }}</a></div>
+          <div>
+            <form id="form" method="post" action="{% url 'get_certificate' trackings.0.lesson.course.pk %}">
+                {% csrf_token %}
+                <button type="submit">Сертификат</button>
+            </form>
+          </div>
+          <div>
+            <button class="fa fa-arrow-circle-down" style="color:grey" title="Подробнее"
+                    onclick="showTracking(this, {{ forloop.counter }})"></button>
+          </div>
+        </div>
+
+        <div id="{{ forloop.counter }}" class="tracking_lessons" style="display: none">
+          {% for tr in trackings %}
+            {% if tr.passed %}
+              <div>
+                <i class="fa fa-check-circle-o" style="color: green" title="Успешно пройден"></i>
+                {{ tr.lesson.name }}
+              </div>
+            {% else %}
+              <div>
+                <i class="fa fa-check-circle-o" style="color: grey" title="Ещё не сдан"></i>
+                {{ tr.lesson.name }}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% empty %}
+      <p>Вы ещё не проходили ни одного <a href="{% url 'index' %}"> курса</a> на нашей платформе</p>
+    {% endfor %}
+
+</div>
+{% endblock %}

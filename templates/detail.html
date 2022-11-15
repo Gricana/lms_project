@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="course_container">
+        {% with course_var=lessons.first.course %}
+        <div class="course_preview" style="transform: none; box-shadow: none; border: none">
+            <p><a style="color:red" href="{% url 'delete' course_var.pk %}">Удалить</a></p>
+            <p><a style="color: blue" href="{% url 'update' course_var.pk %}">Редактировать</a></p>
+            <p><a style="color: blue" href="{% url 'create_lesson' course_var.pk %}">Добавить урок</a></p>
+            <p>{{ course_var.title }}</p>
+
+            {% with authors=course_var.authors.all %}
+                {% if authors|length == 1 %}
+                <p>Автор: {{ authors.0.last_name }} {{ authors.0.first_name }}</p>
+                {% else %}
+                    <p>Авторы:
+                        {% for author in authors %}
+                            {{ author.last_name }} {{ author.first_name }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+            {% endwith %}
+
+            <p>Старт: {{ course_var.start_date }}</p>
+            <p>Продолжительность: {{ course_var.duration }} месяцев/-а</p>
+            <p>Кол-во уроков: {{ course_var.count_lessons }}</p>
+            <p>{{ course_var.description }}</p>
+            <p><span class="price">{{ course_var.price }} ₽</span></p>
+        </div>
+        <div class="course_preview" style="margin-top: 1%; transform: none; box-shadow: none; border: none">
+            {% with count_lessons=lessons.count %}
+            <p style="font-weight: bold">Уроки {{ count_lessons }}</p>
+            {% endwith %}
+            {% for lesson in lessons %}
+                <p style="font-weight: bold">{{ forloop.counter }}. {{ lesson.name }}</p>
+                <p>{{ lesson.preview }}</p>
+            {% empty %}
+                <p>Уроки пока не добавлены</p>
+            {% endfor %}
+            <form id="enroll_form" method="post" action="{% url 'enroll' course_var.pk %}">
+                {% csrf_token %}
+                <button type="submit">Записаться</button>
+            </form>
+        </div>
+
+        <p style="font-weight: bold; margin-left: 5.5%">
+            Отзывы
+            <span style="font-weight: initial; font-size: .85em">{{ reviews.count }}</span>
+            <a style="font-size: .6em; margin-left: 2%" href="{% url 'review' course_var.pk %}">оставить отзыв</a>
+        </p>
+
+        <div class="reviews_container">
+            {% for review in reviews %}
+            <div class="review">
+                {% if review.user.avatar %}
+                    <img src="{{ review.user.avatar.url }}">
+                {% else %}
+                    <img src="{% static 'avatar.png' %}">
+                {% endif %}
+                <p>{{ review.user.last_name }} {{ review.user.first_name }}</p>
+                <p>{{ review.content }}</p>
+            </div>
+            {% empty %}
+                <p>Отзывов пока нет. Ваша <a href="{% url 'review' course_var.pk %}">оценка</a> важна</p>
+            {% endfor %}
+            {% endwith %}
+        </div>
+    </div>
+{% endblock %}

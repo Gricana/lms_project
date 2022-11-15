@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Codeby - {% block title %}онлайн-курсы{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+            integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}/styles.css">
+    <script defer src="{% static 'script.js' %}"></script>
+</head>
+<body>
+    <header>
+      <nav class="header_container">
+        <div class="logo_container">
+          <a class="logo" href="{% url 'index' %}">
+              {% static 'logo.png' as logo_url %}
+              <img src="{{ logo_url }}" alt="Лого cайта" title="Лого cайта">
+          </a>
+            <div class="describer">
+                <div class="title"><h2 translate="no">Codeby</h2></div>
+                <div class="role">онлайн-курсы</div>
+            </div>
+        </div>
+          <div class="nav-toggle"><span></span></div>
+
+        <div class="auth_container">
+            {% if user.is_authenticated %}
+                <div class="profile">
+                    <div><a href="#">{{ user.last_name }} {{ user.first_name }}</a></div>
+                    <div class="submenu_profile" style="display: none;">
+                        <div>
+                            <p><a class="fa fa-heart" href="{% url 'favourites' %}"> Избранное</a></p>
+                            <p><a class="fa fa-tasks" href="{% url 'tracking' %}"> Ваш трек</a></p>
+                            <p><a class="fa fa-cog" href="{% url 'settings' %}"> Настройки</a></p>
+                            <p><a class="fa fa-key" href="{% url 'password_change' %}"> Сменить пароль</a></p>
+                            <p class="fa fa-sign-out">
+                            <a style="color: rgba(238, 68, 68, 0.83)" href="{% url 'logout' %}">Выход</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div><a href="{% url 'create' %}">Создать курс <span class="fa fa-plus-square"></span></a></div>
+            {% else %}
+                <div class="nav-toggle"><span></span></div>
+                <div class="login"><a href="{% url 'login' %}" style="color: #000">Вход</a></div>
+                <div class="register"><a href="{% url 'register' %}" style="color: #fff">Регистрация</a></div>
+            {% endif %}
+        </div>
+      </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer_container">
+            <div class="logo">
+                <div class="copyright-mark">
+                    <p><img src="{% static 'logo.png' %}" alt="лого сайта" title="лого сайта">
+                    <span class="title">Codeby</span> - онлайн-курсы</p>
+                    <div>&copy; {{ current_year }} Все права защищены</div>
+                </div>
+            </div>
+            <div class="privacy"><a href="#">Политика конфиденциальности</a></div>
+            <div class="terms"><a href="#">Условия использования</a></div>
+        </div>
+    </footer>
+</body>
+</html>

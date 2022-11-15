@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Сообщение безопасности</title>
+</head>
+<body>
+    {{ message|linebreaksbr }}
+    <a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'password_reset' %}">
+        сменить пароль
+    </a>
+</body>
+</html>

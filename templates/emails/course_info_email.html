@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Codeby - {% block title %}онлайн-курсы{% endblock %}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}/styles.css">
+</head>
+<body>
+    <main>
+        {% block content %}
+          <p>{{ message }}</p><br>
+      
+          <div class="course_container">
+              <div class="course_preview" style="transform: none; box-shadow: none; border: none">
+                  <p>
+                      <a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ course.get_absolute_url }}">
+                          {{ course.title }}
+                      </a>
+                  </p>
+      
+                  {% with authors=course.authors.all %}
+                      {% if authors|length == 1 %}
+                      <p>Автор: {{ authors.0.last_name }} {{ authors.0.first_name }}</p>
+                      {% else %}
+                          <p>Авторы:
+                              {% for author in authors %}
+                                  {{ author.last_name }} {{ author.first_name }}
+                              {% endfor %}
+                          </p>
+                      {% endif %}
+                  {% endwith %}
+                
+                  <p>Продолжительность: {{ course.duration }} месяцев/-а</p>
+                  <p>Кол-во уроков: {{ course.count_lessons }}</p>
+                  <p>{{ course.description }}</p>
+              </div>
+          </div>
+
+        {% endblock %}
+    </main>
+</body>
+</html>

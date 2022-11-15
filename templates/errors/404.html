@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}404{% endblock %}
+{% block content %}
+  <div class="main_container">
+    <div class="main_item">
+      <img src="{% static 'errors/404.png' %}" alt="Ошибка 404" title="Ошибка 404">
+        <p>Ресурса по указанному пути <a href="#">{{ path }}</a> не существует</p>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}500{% endblock %}
+{% block content %}
+  <div class="main_container">
+    <div class="main_item">
+      <img src="{% static 'errors/500.jpg' %}" alt="Ошибка 500" title="Ошибка 500">
+        <p>Приносим свои извинения. Произошла ошибка на стороне сервера</p>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="main_container">
+    <div class="main_item">
+      <form id="form" method="post">
+        <h3>{% block form_name %}Создание урока {% endblock %}</h3>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          {% for error in form.non_field_errors %}
+             <p>{{ error|escape }}</p>
+          {% endfor %}
+        {% endif %}
+
+        {% for field in form.visible_fields %}
+          {% if field.errors %}
+             <p>{{ error }}</p>
+          {% endif %}
+          <p>{{ field.label_tag }} {{ field }} {{ field.help_text }}</p>
+        {% endfor %}
+
+        <p><button type="submit">Добавить урок</button></p>
+      </form>
+    </div>
+  </div>
+{% endblock %}

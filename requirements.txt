@@ -1,0 +1,9 @@
+asgiref==3.5.2
+async-timeout==4.0.2
+Deprecated==1.2.13
+Django==4.0
+mysqlclient==2.1.1
+Pillow==9.2.0
+redis==4.4.0rc2
+sqlparse==0.4.2
+wrapt==1.14.1

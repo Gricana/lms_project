@@ -14,6 +14,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username']
 
     class Meta:
+        app_label = 'auth_app'
         verbose_name_plural = 'Участники'
         verbose_name = 'Участник'
         ordering = ['last_name']

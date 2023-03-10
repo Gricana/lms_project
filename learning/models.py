@@ -65,6 +65,7 @@ class Review(models.Model):
     sent_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата отправки отзыва')
 
     class Meta:
+        app_label = 'learning'
         verbose_name_plural = 'Отзывы'
         verbose_name = 'Отзыв'
         ordering = ('-sent_date', )

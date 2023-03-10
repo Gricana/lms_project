@@ -14,7 +14,7 @@ class Course(models.Model):
     count_lessons = models.PositiveIntegerField(verbose_name='Кол-во уроков')
 
     class Meta:
-        app_label = 'auth_app'
+        app_label = 'learning'
         verbose_name_plural = 'Курсы'
         verbose_name = 'Курс'
         ordering = ['title']
@@ -36,7 +36,7 @@ class Lesson(models.Model):
     preview = models.TextField(verbose_name='Описание урока', max_length=200)
 
     class Meta:
-        app_label = 'auth_app'
+        app_label = 'learning'
         verbose_name_plural = 'Уроки'
         verbose_name = 'Урок'
         ordering = ['course']
@@ -54,7 +54,7 @@ class Tracking(models.Model):
     passed = models.BooleanField(default=None, verbose_name='Пройден?')
 
     class Meta:
-        app_label = 'auth_app'
+        app_label = 'learning'
         ordering = ['-user']
 
 

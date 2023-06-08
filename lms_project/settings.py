@@ -98,9 +98,9 @@ WSGI_APPLICATION = 'lms_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '127.0.0.1',
-        'USER': os.environ.get('USER_DB'),
-        'PASSWORD': os.environ.get('PASSWORD_DB'),
+        'HOST': 'db',
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
         'NAME': 'lms_project',
         'ATOMIC_REQUEST': True,
         'TEST': {
@@ -113,11 +113,11 @@ DATABASES = {
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': f'redis://127.0.0.1:6379/0',
+        'LOCATION': f'redis://redis:6379/0',
     },
     'session_store': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': f'redis://127.0.0.1:6379/1',
+        'LOCATION': f'redis://redis:6379/1',
     }
 }
 

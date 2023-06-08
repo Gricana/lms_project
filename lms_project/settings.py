@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = ['127.0.0.1']
+
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
@@ -101,7 +103,7 @@ DATABASES = {
         'HOST': 'db',
         'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'NAME': 'lms_project',
+        'NAME': os.environ.get('DATABASE_NAME'),
         'ATOMIC_REQUEST': True,
         'TEST': {
             'NAME': 'lms_project_test',
